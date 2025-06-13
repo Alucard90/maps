@@ -5,9 +5,9 @@ from email.mime.text import MIMEText
 
 app = Flask(__name__)
 
-EMAIL_ORIGEN = "joluga90@gmail.com"
-EMAIL_DESTINO = "joluga90@gmail.com"
-EMAIL_PASSWORD = "Natha13072013"
+EMAIL_ORIGEN = "revisatuubicacino@gmail.com"
+EMAIL_DESTINO = "revisatuubicacion@gmail.com"
+EMAIL_PASSWORD = "Ubicacion2025"
 
 @app.route('/')
 def home():
