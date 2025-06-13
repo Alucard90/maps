@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 EMAIL_ORIGEN = "revisatuubicacino@gmail.com"
 EMAIL_DESTINO = "revisatuubicacion@gmail.com"
-EMAIL_PASSWORD = "Ubicacion2025"
+EMAIL_PASSWORD = "cbwbhaxtsckctscb"
 
 @app.route('/')
 def home():
